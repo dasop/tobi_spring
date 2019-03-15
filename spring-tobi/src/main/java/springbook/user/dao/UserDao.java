@@ -149,17 +149,19 @@ public class UserDao {
 		);*/
 		//3. JdbcContext의 메소드로 변경
 		
-		this.jdbcContext.workWithStatementStrategy(new StatementStrategy() {
-			public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
-				PreparedStatement ps = c.prepareStatement(
-						"insert into users(id, name, password) values(?,?,?)");
-				
-				ps.setString(1, user.getId());
-				ps.setString(2, user.getName());
-				ps.setString(3, user.getPassword());
-				return ps;
-			}
-		});
+//		this.jdbcContext.workWithStatementStrategy(new StatementStrategy() {
+//			public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
+//				PreparedStatement ps = c.prepareStatement(
+//						"insert into users(id, name, password) values(?,?,?)");
+//				
+//				ps.setString(1, user.getId());
+//				ps.setString(2, user.getName());
+//				ps.setString(3, user.getPassword());
+//				return ps;
+//			}
+//		});
+		
+		this.jdbcContext.executeSql("insert into users(id, name, password) values(?,?,?)",user.getId(),user.getName(),user.getPassword());
 	}		
 
 	
